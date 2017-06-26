@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <title>Queries</title>
+
+</h:head>
+<h:body>
+
+    <h:form>
+        Title <h:inputText value="#{personBean.tempTitle}"/>
+        <br/>
+        <h:commandButton value="Show people"/>
+        <br/>
+    </h:form>
+
+    <br/>People who received message with such title ('#{personBean.tempTitle}')
+    <br/>
+    <h:dataTable value="#{personBean.peopleWhoReceivedMessageWithTitle}" var="person">
+        <h:column>
+            <f:facet name="header">id</f:facet>
+            #{person.id}
+        </h:column>
+        <h:column>
+            <f:facet name="header">name</f:facet>
+            #{person.name}
+        </h:column>
+        <h:column>
+            <f:facet name="header">birthday year</f:facet>
+            #{person.birthdayYear}
+        </h:column>
+    </h:dataTable>
+
+    <br/>People who did not received message with such title ('#{personBean.tempTitle}')
+    <br/>
+    <h:dataTable value="#{personBean.peopleWhoNotReceivedMessageWithTitle}" var="person">
+        <h:column>
+            <f:facet name="header">id</f:facet>
+            #{person.id}
+        </h:column>
+        <h:column>
+            <f:facet name="header">name</f:facet>
+            #{person.name}
+        </h:column>
+        <h:column>
+            <f:facet name="header">birthday year</f:facet>
+            #{person.birthdayYear}
+        </h:column>
+    </h:dataTable>
+
+
+    <h3>All messages sent:</h3><br/>
+    <h:dataTable value="#{personBean.peopleAndMessagesInfo}" var="personmes">
+        <h:column>
+            <f:facet name="header">id</f:facet>
+            #{personmes.person.id}
+        </h:column>
+        <h:column>
+            <f:facet name="header">name</f:facet>
+            #{personmes.person.name}
+        </h:column>
+        <h:column>
+            <f:facet name="header">birthday year</f:facet>
+            #{personmes.person.birthdayYear}
+        </h:column>
+        <h:column>
+            <f:facet name="header">title</f:facet>
+            #{personmes.message.title}
+        </h:column>
+        <h:column>
+            <f:facet name="header">message</f:facet>
+            #{personmes.message.text}
+        </h:column>
+        <h:column>
+            <f:facet name="header">message length</f:facet>
+            #{personmes.messageLength}
+        </h:column>
+    </h:dataTable>
+
+    <h3>Person with least message length</h3>
+    <table>
+        <tr>
+            <td>
+                #{personBean.personAndMessageWithLeastMessageLength.person.id}
+            </td>
+            <td>
+                #{personBean.personAndMessageWithLeastMessageLength.person.name}
+            </td>
+            <td>
+                #{personBean.personAndMessageWithLeastMessageLength.message.title}
+            </td>
+            <td>
+                #{personBean.personAndMessageWithLeastMessageLength.message.text}
+            </td>
+            <td>
+                #{personBean.personAndMessageWithLeastMessageLength.messageLength}
+            </td>
+        </tr>
+    </table>
+
+    <h3>People and their messages info:</h3><br/>
+    <h:dataTable value="#{personBean.peopleMessagesInfo}" var="personM">
+        <h:column>
+            <f:facet name="header">id  </f:facet>
+            #{personM.person.id}
+        </h:column>
+        <h:column>
+            <f:facet name="header">name  </f:facet>
+            #{personM.person.name}
+        </h:column>
+        <h:column>
+            <f:facet name="header">sent Messages  </f:facet>
+            #{personM.sentMessages}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Received Messages  </f:facet>
+            #{personM.receivedMessages}
+        </h:column>
+    </h:dataTable>
+
+</h:body>
+</html>
