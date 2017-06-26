@@ -18,8 +18,8 @@
         <br/>
     </h:form>
 
-    <br/>People who received message with such title ('#{personBean.tempTitle}')
-    <br/>
+    <h3>People who received message with such title ('#{personBean.tempTitle}')</h3>
+
     <h:dataTable value="#{personBean.peopleWhoReceivedMessageWithTitle}" var="person">
         <h:column>
             <f:facet name="header">id</f:facet>
@@ -35,8 +35,8 @@
         </h:column>
     </h:dataTable>
 
-    <br/>People who did not received message with such title ('#{personBean.tempTitle}')
-    <br/>
+    <h3>People who did not received message with such title ('#{personBean.tempTitle}')</h3>
+
     <h:dataTable value="#{personBean.peopleWhoNotReceivedMessageWithTitle}" var="person">
         <h:column>
             <f:facet name="header">id</f:facet>
@@ -53,7 +53,7 @@
     </h:dataTable>
 
 
-    <h3>All messages sent:</h3><br/>
+    <h3>All messages sent:</h3>
     <h:dataTable value="#{personBean.peopleAndMessagesInfo}" var="personmes">
         <h:column>
             <f:facet name="header">id</f:facet>
@@ -66,6 +66,10 @@
         <h:column>
             <f:facet name="header">birthday year</f:facet>
             #{personmes.person.birthdayYear}
+        </h:column>
+        <h:column>
+            <f:facet name="header">messageId</f:facet>
+            #{personmes.message.id}
         </h:column>
         <h:column>
             <f:facet name="header">title</f:facet>
@@ -102,8 +106,8 @@
         </tr>
     </table>
 
-    <h3>People and their messages info:</h3><br/>
-    <h:dataTable value="#{personBean.peopleMessagesInfo}" var="personM">
+    <h3>People and their sent messages count:</h3>
+    <h:dataTable value="#{personBean.peopleSentMessagesInfo}" var="personM">
         <h:column>
             <f:facet name="header">id  </f:facet>
             #{personM.person.id}
@@ -113,12 +117,24 @@
             #{personM.person.name}
         </h:column>
         <h:column>
-            <f:facet name="header">sent Messages  </f:facet>
-            #{personM.sentMessages}
+            <f:facet name="header">sent  </f:facet>
+            #{personM.messagesCount}
+        </h:column>
+    </h:dataTable>
+
+    <h3>People and their received messages count:</h3>
+    <h:dataTable value="#{personBean.peopleReceivedMessagesInfo}" var="personM">
+        <h:column>
+            <f:facet name="header">id  </f:facet>
+            #{personM.person.id}
         </h:column>
         <h:column>
-            <f:facet name="header">Received Messages  </f:facet>
-            #{personM.receivedMessages}
+            <f:facet name="header">name  </f:facet>
+            #{personM.person.name}
+        </h:column>
+        <h:column>
+            <f:facet name="header">received  </f:facet>
+            #{personM.messagesCount}
         </h:column>
     </h:dataTable>
 

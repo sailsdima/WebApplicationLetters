@@ -6,10 +6,10 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:head>
-    <title>Registration</title>
+    <title>Write message</title>
 </h:head>
 <h:body>
-
+    <h3>Send message</h3>
     <h:form>
         <table>
             <tr>
@@ -35,7 +35,7 @@
                 </td>
                 <td>
                     Send to everybody<h:selectBooleanCheckbox value="#{messageBean.sendToEverybody}"
-                                                              />
+                />
                 </td>
             </tr>
             <tr>
@@ -62,5 +62,20 @@
         </table>
     </h:form>
 
+    <br/>
+
+    <br/>
+    <h:form>
+        <h3>Resend letter</h3>
+        Resend letter of
+        <h:selectOneMenu value="#{messageBean.senderId}">
+            <f:selectItems value="#{personBean.people}" var="person" itemValue="#{person.id}"
+                           itemLabel="#{person.name}"/>
+        </h:selectOneMenu>
+        with title <h:inputText value="#{messageBean.tempTitle}"/> to everybody.
+        <br/>
+        <h:commandButton value="resend" action="#{messageBean.resendMessage}"/>
+        <h:outputLabel value="#{messageBean.statusResendingMessage}"/>
+    </h:form>
 </h:body>
 </html>

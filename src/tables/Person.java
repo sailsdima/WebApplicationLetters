@@ -28,16 +28,21 @@ import java.util.Collection;
 //    GROUP BY PERSON.ID
 //    ORDER BY ssum
 //    LIMIT 1
+        @NamedQuery(name = "Person.PeopleWhoReceivedMessageWithTitle",
+                query = "SELECT distinct p FROM Person p, Message m, SentMessage s WHERE p.id = s.receiver.id AND s.message.id = m.id AND m.title = :title"),
+
+        @NamedQuery(name = "Person.PeopleWhoNotReceivedMessageWithTitle",
+                query = "select distinct p1 from Person p1 where p1.id not in (SELECT p.id FROM Person p, Message m, SentMessage s WHERE p.id = s.receiver.id AND s.message.id = m.id AND m.title = :title)"),
 
         @NamedQuery(name = "Person.FindPersonAndMessagesInfo",
                 query = "SELECT new construct.PersonMessagesLengthInfo(p, s.message, length(s.message.text)) from Person p, SentMessage s where p.id = s.sender.id"),
 
-
-
-
-        @NamedQuery(name = "Person.FindPersonMessagesInfo",
+        @NamedQuery(name = "Person.FindPersonSentMessagesInfo",
                 query = "SELECT NEW construct.PersonMessages(p, count(s.sender)) FROM Person p left outer join SentMessage s where (p.id = s.sender.id) GROUP BY p.id"),
-//                query = "SELECT NEW construct.PersonMessages(p, count(s.sender)) FROM Person p, SentMessage s where p.id in (select s1.sender.id from SentMessage s1 where s1.sender.id = p.id) GROUP BY p.id"),
+
+        @NamedQuery(name = "Person.FindPersonReceivedMessagesInfo",
+                query = "SELECT NEW construct.PersonMessages(p, count(s.receiver)) FROM Person p left outer join SentMessage s where (p.id = s.receiver.id) GROUP BY p.id"),
+
 })
 public class Person {
 

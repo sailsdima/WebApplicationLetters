@@ -7,9 +7,11 @@ import java.util.Date;
  * Created by dima on 24.06.17.
  */
 @Entity
-@NamedQueries(
-        @NamedQuery(name = "Message.getAll", query = "SELECT m FROM Message m")
-)
+@NamedQueries({
+        @NamedQuery(name = "Message.FindAll", query = "SELECT m FROM Message m"),
+        @NamedQuery(name = "Message.findMessageIdBySenderIdAndTitle",
+        query = "select s.message.id from SentMessage s where s.sender.id = :senderId and s.message.title = :tempTitle")
+})
 public class Message {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)

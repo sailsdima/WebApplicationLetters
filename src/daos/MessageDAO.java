@@ -7,6 +7,7 @@ import tables.SentMessage;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import java.util.Date;
 import java.util.List;
 
@@ -21,7 +22,7 @@ public class MessageDAO {
     private EntityManager entityManager;
 
     public List<Message> getAll() {
-        return entityManager.createNamedQuery("Message.getAll").getResultList();
+        return entityManager.createNamedQuery("Message.FindAll").getResultList();
     }
 
     public Message addMessage(Message message) {
@@ -34,6 +35,7 @@ public class MessageDAO {
         Person receiver = entityManager.find(Person.class, receiverId);
         Message message = entityManager.find(Message.class, messageId);
 
+
         if (sender == null || receiver == null || message == null)
             return false;
 
@@ -44,15 +46,17 @@ public class MessageDAO {
         sentMessage.setDispatchDate(new Date());
 
         entityManager.persist(sentMessage);
+
         return true;
     }
 
     public boolean sendMessageToEverybody(int senderId, int messageId) {
+
         List<Person> people = entityManager.createNamedQuery("Person.FindAll").getResultList();
 
         for (Person p : people) {
             if (senderId != p.getId())
-                if(!sendMessage(senderId, p.getId(), messageId))
+                if (!sendMessage(senderId, p.getId(), messageId))
                     return false;
         }
 
@@ -61,4 +65,18 @@ public class MessageDAO {
     }
 
 
+    public boolean resendMessageToEvb(int senderId, String tempTitle) {
+
+
+        Query query = entityManager.createNamedQuery("Message.findMessageIdBySenderIdAndTitle");
+        query.setParameter("senderId", senderId);
+        query.setParameter("tempTitle", tempTitle);
+
+        List<Integer> resultList = query.getResultList();
+
+        if (resultList.isEmpty())
+            return false;
+
+        return sendMessageToEverybody(senderId, resultList.get(0));
+    }
 }

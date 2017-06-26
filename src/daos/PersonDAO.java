@@ -33,14 +33,13 @@ public class PersonDAO {
     }
 
     public List<Person> getPeopleWhoReceivedMessageWithTitle(String title) {
-        Query query = entityManager.createQuery("SELECT distinct p FROM Person p, Message m, SentMessage s WHERE p.id = s.receiver.id AND s.message.id = m.id AND m.title = :title");
-
+        Query query = entityManager.createNamedQuery("Person.PeopleWhoReceivedMessageWithTitle");
         query.setParameter("title", title);
         return query.getResultList();
     }
 
     public List<Person> getPeopleWhoNotReceivedMessageWithTitle(String title) {
-        Query query = entityManager.createQuery("select distinct p1 from Person p1 where p1.id not in (SELECT p.id FROM Person p, Message m, SentMessage s WHERE p.id = s.receiver.id AND s.message.id = m.id AND m.title = :title)");
+        Query query = entityManager.createNamedQuery("Person.PeopleWhoNotReceivedMessageWithTitle");
 
         query.setParameter("title", title);
         return query.getResultList();
@@ -60,8 +59,13 @@ public class PersonDAO {
                 Collections.min(getPeopleAndMessagesInfo(), Comparator.comparingInt(PersonMessagesLengthInfo::getMessageLength));
     }
 
-    public List<PersonMessages> getPeopleMessagesInfo() {
-        TypedQuery<PersonMessages> personMessages = entityManager.createNamedQuery("Person.FindPersonMessagesInfo", PersonMessages.class);
+    public List<PersonMessages> getPeopleSentMessagesInfo() {
+        TypedQuery<PersonMessages> personMessages = entityManager.createNamedQuery("Person.FindPersonSentMessagesInfo", PersonMessages.class);
+        return personMessages.getResultList();
+    }
+
+    public List<PersonMessages> getPeopleReceivedMessagesInfo() {
+        TypedQuery<PersonMessages> personMessages = entityManager.createNamedQuery("Person.FindPersonReceivedMessagesInfo", PersonMessages.class);
         return personMessages.getResultList();
     }
 

@@ -50,10 +50,16 @@ public class PersonBean implements Serializable{
         return tempPeople;
     }
 
-    public List<PersonMessages> getPeopleMessagesInfo() {
-        List<PersonMessages> personMessagesInfo = personDAO.getPeopleMessagesInfo();
+    public List<PersonMessages> getPeopleSentMessagesInfo() {
+        List<PersonMessages> peopleMessagesInfo = personDAO.getPeopleSentMessagesInfo();
 
-        return personMessagesInfo;
+        return peopleMessagesInfo;
+    }
+
+    public List<PersonMessages> getPeopleReceivedMessagesInfo() {
+        List<PersonMessages> peopleMessagesInfo = personDAO.getPeopleReceivedMessagesInfo();
+
+        return peopleMessagesInfo;
     }
 
     public Person getTempPerson() {

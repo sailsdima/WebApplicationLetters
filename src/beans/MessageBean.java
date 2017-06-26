@@ -24,9 +24,11 @@ public class MessageBean implements Serializable {
     private int senderId;
     private int receiverId;
     private Boolean sendToEverybody;
+    private String tempTitle;
+    private String statusResendingMessage;
 
 
-    public void sentMessage() {
+    public String sentMessage() {
         messageDAO.addMessage(tempMessage);
         if (sendToEverybody)
             messageDAO.sendMessageToEverybody(senderId, tempMessage.getId());
@@ -34,11 +36,20 @@ public class MessageBean implements Serializable {
             messageDAO.sendMessage(senderId, receiverId, tempMessage.getId());
         tempMessage.setTitle("");
         tempMessage.setText("");
+        return null;
+    }
+
+    public String resendMessage() {
+        if (messageDAO.resendMessageToEvb(senderId, tempTitle)) {
+            statusResendingMessage = "Resent successfully";
+        } else
+            statusResendingMessage = "Something went wrong. Probably selected used did not sent message with title '" + tempTitle + "'";
+        tempTitle = "";
+        return null;
     }
 
     public void setSenderId(int senderId) {
         this.senderId = senderId;
-        System.out.println(senderId);
     }
 
     public int getSenderId() {
@@ -75,5 +86,21 @@ public class MessageBean implements Serializable {
 
     public Boolean getSendToEverybody() {
         return sendToEverybody;
+    }
+
+    public void setTempTitle(String tempTitle) {
+        this.tempTitle = tempTitle;
+    }
+
+    public String getTempTitle() {
+        return tempTitle;
+    }
+
+    public String getStatusResendingMessage() {
+        return statusResendingMessage;
+    }
+
+    public void setStatusResendingMessage(String statusResendingMessage) {
+        this.statusResendingMessage = statusResendingMessage;
     }
 }

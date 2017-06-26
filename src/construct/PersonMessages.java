@@ -8,12 +8,11 @@ import tables.Person;
 public class PersonMessages {
 
     private Person person;
-    private long sentMessages;
-    private long receivedMessages;
+    private long messagesCount;
 
-    public PersonMessages(Person person, long sentMessages) {
+    public PersonMessages(Person person, long messagesCount) {
         this.person = person;
-        this.sentMessages = sentMessages;
+        this.messagesCount = messagesCount;
     }
 
     public Person getPerson() {
@@ -24,19 +23,11 @@ public class PersonMessages {
         this.person = person;
     }
 
-    public long  getSentMessages() {
-        return sentMessages;
+    public long getMessagesCount() {
+        return messagesCount;
     }
 
-    public void setSentMessages(long  sentMessages) {
-        this.sentMessages = sentMessages;
-    }
-
-    public long  getReceivedMessages() {
-        return receivedMessages;
-    }
-
-    public void setReceivedMessages(long  receivedMessages) {
-        this.receivedMessages = receivedMessages;
+    public void setMessagesCount(long messagesCount) {
+        this.messagesCount = messagesCount;
     }
 }
