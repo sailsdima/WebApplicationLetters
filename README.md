@@ -1,9 +1,9 @@
-# WebApplicationLetters
-Welcome to the WebApplicationLetters 
 
-Java EE (JSF, Primefaces, CDI, EJB)
+## Welcome to the WebApplicationLetters 
 
-Task: 
+### Technologies used: Java EE (JSF, Primefaces, CDI, EJB)
+
+### Task: 
 
 Письма. В БД хранится информация о письмах и отправляющих их людях.
 
