@@ -1,7 +1,7 @@
 
 ## Welcome to the WebApplicationLetters 
 
-### Technologies used: Java EE (JSF, Primefaces, CDI, EJB)
+### Technologies used: Java EE (JSF, CDI, EJB)
 
 ### Task: 
 
